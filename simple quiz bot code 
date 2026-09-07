@@ -1,0 +1,179 @@
+import random
+import time
+
+
+QUESTIONS = [
+    {
+        "question": "Which keyword is used to define a function in Python?",
+        "options": ["A. function", "B. def", "C. fun", "D. define"],
+        "answer": "B",
+    },
+    {
+        "question": "What is the output of 2 ** 3 in Python?",
+        "options": ["A. 6", "B. 8", "C. 9", "D. 12"],
+        "answer": "B",
+    },
+    {
+        "question": "Which data type is used to store True or False?",
+        "options": ["A. str", "B. int", "C. bool", "D. float"],
+        "answer": "C",
+    },
+    {
+        "question": "Which symbol is used for a comment in Python?",
+        "options": ["A. //", "B. <!-- -->", "C. #", "D. **"],
+        "answer": "C",
+    },
+    {
+        "question": "Which method adds an item to the end of a list?",
+        "options": ["A. add()", "B. insert()", "C. append()", "D. push()"],
+        "answer": "C",
+    },
+    {
+        "question": "What does len() return?",
+        "options": [
+            "A. The largest value",
+            "B. The number of items",
+            "C. The smallest value",
+            "D. The data type",
+        ],
+        "answer": "B",
+    },
+    {
+        "question": "Which keyword is used to create a class?",
+        "options": ["A. object", "B. struct", "C. class", "D. new"],
+        "answer": "C",
+    },
+    {
+        "question": "Which operator is used for equality comparison?",
+        "options": ["A. =", "B. ==", "C. ===", "D. !="],
+        "answer": "B",
+    },
+    {
+        "question": "Which collection stores data as key-value pairs?",
+        "options": ["A. List", "B. Tuple", "C. Set", "D. Dictionary"],
+        "answer": "D",
+    },
+    {
+        "question": "Which function is used to display text in Python?",
+        "options": ["A. display()", "B. echo()", "C. print()", "D. show()"],
+        "answer": "C",
+    },
+    {
+        "question": "Which keyword is used to handle exceptions?",
+        "options": ["A. catch", "B. error", "C. try", "D. exception"],
+        "answer": "C",
+    },
+    {
+        "question": "Which file extension is normally used for Python files?",
+        "options": ["A. .java", "B. .py", "C. .python", "D. .pt"],
+        "answer": "B",
+    },
+    {
+        "question": "What is 10 // 3 in Python?",
+        "options": ["A. 3", "B. 3.33", "C. 1", "D. 4"],
+        "answer": "A",
+    },
+    {
+        "question": "Which keyword exits a loop immediately?",
+        "options": ["A. stop", "B. exit", "C. break", "D. return"],
+        "answer": "C",
+    },
+    {
+        "question": "Which keyword skips to the next loop iteration?",
+        "options": ["A. skip", "B. continue", "C. next", "D. pass"],
+        "answer": "B",
+    },
+]
+
+
+def type_text(text, delay=0.01):
+    """Print text with a small typing effect."""
+    for character in text:
+        print(character, end="", flush=True)
+        time.sleep(delay)
+    print()
+
+
+def ask_question(number, question):
+    """Display a question and return whether the answer is correct."""
+    print(f"\nQuestion {number}/10")
+    print("-" * 40)
+    print(question["question"])
+
+    for option in question["options"]:
+        print(option)
+
+    while True:
+        answer = input("\nYour answer (A/B/C/D): ").strip().upper()
+
+        if answer in {"A", "B", "C", "D"}:
+            break
+
+        print("⚠️ Please enter A, B, C, or D.")
+
+    if answer == question["answer"]:
+        print("✅ Correct!")
+        return True
+
+    print(f"❌ Not quite. The correct answer was {question['answer']}.")
+    return False
+
+
+def run_quiz():
+    """Run one quiz session."""
+    selected_questions = random.sample(QUESTIONS, min(10, len(QUESTIONS)))
+    score = 0
+
+    type_text("\n🤖 QuizBot: Let's begin!")
+
+    for number, question in enumerate(selected_questions, start=1):
+        if ask_question(number, question):
+            score += 1
+
+    percentage = (score / len(selected_questions)) * 100
+
+    print("\n" + "=" * 40)
+    print("🏁 QUIZ COMPLETE")
+    print("=" * 40)
+    print(f"Score:      {score}/{len(selected_questions)}")
+    print(f"Percentage: {percentage:.0f}%")
+
+    if percentage == 100:
+        print("🏆 Perfect score! You're a Python master!")
+    elif percentage >= 80:
+        print("🔥 Excellent work!")
+    elif percentage >= 60:
+        print("👍 Good job! Keep practicing.")
+    else:
+        print("📚 Keep learning — you'll get there!")
+
+    print("=" * 40)
+
+
+def main():
+    """Start the QuizBot application."""
+    print("=" * 40)
+    print("🤖 PYTHON QUIZ BOT")
+    print("=" * 40)
+
+    name = input("What's your name? ").strip()
+
+    if not name:
+        name = "Quizzer"
+
+    type_text(f"\n🤖 Hello, {name}! I'll give you 10 random questions.")
+
+    while True:
+        run_quiz()
+
+        again = input("\n🔄 Play again? (Y/N): ").strip().upper()
+
+        if again != "Y":
+            type_text(f"\n🤖 Thanks for playing, {name}! See you next time 👋")
+            break
+
+        print("\n🎲 Creating a new random quiz...")
+
+
+if __name__ == "__main__":
+    main()
