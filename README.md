@@ -13,4 +13,4 @@ It contains:
 🧩 Easy to Expand — You can easily add hundreds of new questions.
 Tech used: Python, random, time, functions, lists/dictionaries, loops, conditionals, and input handling.
 
-made by me a school student using pyroid 3 
+made by me a school student using pyroid 3 on mobile 
